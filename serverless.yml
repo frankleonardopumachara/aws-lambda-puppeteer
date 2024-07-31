@@ -1,0 +1,16 @@
+service: aws-lambda-puppeteer
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource: arn:aws:s3:::aws-lambda-puppeteer-tutorial/*
+
+functions:
+  generate-pdf:
+    handler: dist/handler.generatePDF
+    timeout: 300
