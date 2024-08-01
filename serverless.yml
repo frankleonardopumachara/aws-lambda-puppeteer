@@ -10,7 +10,14 @@ provider:
         - s3:PutObject
       Resource: arn:aws:s3:::aws-lambda-puppeteer-tutorial/*
 
+layers:
+  Chrome:
+    path: layer
+    description: Chrome Binary
+
 functions:
   generate-pdf:
     handler: dist/handler.generatePDF
+    layers:
+      - { Ref: ChromeLambdaLayer }
     timeout: 300

@@ -24,6 +24,15 @@ npm run deploy
 ```plaintext
 aws-lambda-puppeteer/
 │
+├── layer/
+│   └── nodejs/
+│       └── chromium/
+│           ├── al2.tar.br
+│           ├── al2023.tar.br
+│           ├── chromium.br
+│           ├── fonts.tar.br
+│           └── swiftshader.tar.br
+│
 ├── src/
 │   └── handler.ts
 │

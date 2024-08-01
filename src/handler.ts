@@ -9,7 +9,7 @@ export const generatePDF = async (event: APIGatewayProxyEvent, context: APIGatew
 	const browser = await puppeteer.launch({
 		args: chromium.args,
 		defaultViewport: chromium.defaultViewport,
-		executablePath: await chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v123.0.1/chromium-v123.0.1-pack.tar'),
+		executablePath: await chromium.executablePath('/opt/nodejs/chromium'),
 		headless: chromium.headless,
 	})
 
@@ -24,7 +24,15 @@ export const generatePDF = async (event: APIGatewayProxyEvent, context: APIGatew
 	`)
 
 	// generate pdf Buffer, store the file in S3 for example
-	const pdfBuffer: Buffer = await page.pdf({format: 'a4'})
+	const pdfBuffer: Buffer = await page.pdf({
+		format: 'a4',
+		margin: {
+			top: '0.4in',
+			left: '0.4in',
+			right: '0.4in',
+			bottom: '0.4in',
+		}
+	})
 
 	// upload file to S3
 	const s3 = new S3Client({region: 'us-east-1'})
